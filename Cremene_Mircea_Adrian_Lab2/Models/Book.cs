@@ -15,9 +15,9 @@ public class Book
     
     [DataType(DataType.Date)]
     public DateTime PublishingDate { get; set; }
-    
     public int? PublisherId { get; set; }
     public int? AuthorId { get; set; }
     public Author? Author { get; set; }
     public Publisher? Publisher { get; set; } 
+    public ICollection<BookCategory>? BookCategories { get; set; }
 }

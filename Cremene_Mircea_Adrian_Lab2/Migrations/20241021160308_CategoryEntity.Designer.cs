@@ -4,6 +4,7 @@ using Cremene_Mircea_Adrian_Lab2.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Cremene_Mircea_Adrian_Lab2.Migrations
 {
     [DbContext(typeof(Cremene_Mircea_Adrian_Lab2Context))]
-    partial class Cremene_Mircea_Adrian_Lab2ContextModelSnapshot : ModelSnapshot
+    [Migration("20241021160308_CategoryEntity")]
+    partial class CategoryEntity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

@@ -1,12 +1,12 @@
 @page
-@model Cremene_Mircea_Adrian_Lab2.Pages.Authors.IndexModel
+@model Cremene_Mircea_Adrian_Lab2.Pages.Categories.IndexModel
 
 @{
-    ViewData["Title"] = "Authors";
+    ViewData["Title"] = "Categories";
     Layout = "~/Pages/Shared/_Layout.cshtml";
 }
 
-<h1>Authors</h1>
+<h1>Categories</h1>
 
 <p>
     <a asp-page="Create">Create New</a>
@@ -15,22 +15,16 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Author[0].FirstName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Author[0].LastName)
+                @Html.DisplayNameFor(model => model.Category[0].CategoryName)
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.Author) {
+@foreach (var item in Model.Category) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.FirstName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.LastName)
+                @Html.DisplayFor(modelItem => item.CategoryName)
             </td>
             <td>
                 <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |

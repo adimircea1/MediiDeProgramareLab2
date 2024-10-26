@@ -15,13 +15,29 @@ namespace Cremene_Mircea_Adrian_Lab2.Pages.Books
         }
 
         public IList<Book> Book { get;set; } = default!;
-
-        public async Task OnGetAsync()
+        public BookData BookD { get; set; }
+        public int BookId { get; set; }
+        public int CategoryId { get; set; }
+        
+        public async Task OnGetAsync(int? id, int? categoryId)
         {
-            Book = await _context.Book
-                .Include(b=>b.Publisher)
+            BookD = new BookData();
+
+            BookD.Books = await _context.Book
                 .Include(b => b.Author)
+                .Include(b => b.Publisher)
+                .Include(b => b.BookCategories)!
+                .ThenInclude(b => b.Category)
+                .AsNoTracking()
+                .OrderBy(b => b.Title)
                 .ToListAsync();
+
+            if (id is not null)
+            {
+                BookId = id.Value;
+                Book book = BookD.Books.Single(i => i.Id == id.Value);
+                BookD.Categories = book.BookCategories!.Select(s => s.Category)!;
+            }
         }
     }
 }

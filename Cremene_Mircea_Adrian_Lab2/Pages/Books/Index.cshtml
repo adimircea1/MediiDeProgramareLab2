@@ -1,62 +1,73 @@
-@page
+@page "/"
 @model IndexModel
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Books";
     Layout = "~/Pages/Shared/_Layout.cshtml";
 }
 
-<h1>Index</h1>
+<h1>Books</h1>
 
 <p>
     <a asp-page="Create">Create New</a>
 </p>
 <table class="table">
     <thead>
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Book[0].Title)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Book[0].Price)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Book[0].PublishingDate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Book[0].Publisher!.PublisherName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Book[0].Author!.AuthorName)
-        </th>
-    </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Book[0].Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Book[0].Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Book[0].PublishingDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Book[0].Publisher!.PublisherName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Book[0].Author!.AuthorName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Book[0].BookCategories!)
+            </th>
+        </tr>
     </thead>
     <tbody>
-    @foreach (var item in Model.Book)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Price)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PublishingDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Publisher!.PublisherName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Author!.AuthorName)
-            </td>
-            <td></td>
-            <td>
-                <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-    }
+        @foreach (var item in Model.BookD.Books)
+        {
+            var selectedRow = item.Id == Model.BookId ? "table-success" : "";
+            <tr class="@selectedRow">
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PublishingDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Publisher!.PublisherName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Author!.AuthorName)
+                </td>
+                <td>
+                    @{
+                        foreach (var category in item.BookCategories!)
+                        {
+                            @category.Category!.Id@: @category.Category!.CategoryName <br/>
+                        }
+                    }
+                </td>
+                <td>
+                    <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

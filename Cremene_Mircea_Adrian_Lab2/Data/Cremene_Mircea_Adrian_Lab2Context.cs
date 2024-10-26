@@ -13,5 +13,6 @@ namespace Cremene_Mircea_Adrian_Lab2.Data
         public DbSet<Book> Book { get; set; } = default!;
         public DbSet<Publisher> Publisher { get; set; } = default!;
         public DbSet<Cremene_Mircea_Adrian_Lab2.Models.Author> Author { get; set; } = default!;
+        public DbSet<Cremene_Mircea_Adrian_Lab2.Models.Category> Category { get; set; } = default!;
     }
 }

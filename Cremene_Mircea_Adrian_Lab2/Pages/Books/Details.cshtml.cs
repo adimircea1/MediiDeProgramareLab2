@@ -27,7 +27,11 @@ namespace Cremene_Mircea_Adrian_Lab2.Pages.Books
             var book = await _context.Book
                 .Include(b => b.Author)
                 .Include(b => b.Publisher)
-                .FirstOrDefaultAsync(m => m.Id == id);
+                .Include(b => b.BookCategories)!
+                .ThenInclude(b => b.Category)
+                .AsNoTracking()
+                .OrderBy(b => b.Title)
+                .FirstOrDefaultAsync(b => b.Id == id);
             
             if (book == null)
             {
