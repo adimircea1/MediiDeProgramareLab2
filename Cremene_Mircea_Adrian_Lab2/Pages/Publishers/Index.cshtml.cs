@@ -40,7 +40,7 @@ namespace Cremene_Mircea_Adrian_Lab2.Pages.Publishers
                 PublisherData.Books = publisher.Books;
             }
             
-            //Publisher = await _context.Publisher.ToListAsync();
+            Publisher = await _context.Publisher.ToListAsync();
         }
     }
 }
