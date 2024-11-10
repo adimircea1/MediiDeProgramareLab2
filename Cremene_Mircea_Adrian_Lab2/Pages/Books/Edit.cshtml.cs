@@ -1,7 +1,6 @@
 using Cremene_Mircea_Adrian_Lab2.Data;
 using Cremene_Mircea_Adrian_Lab2.Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 
