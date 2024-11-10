@@ -1,4 +1,4 @@
-@page
+@page "{id:int?}"
 @model Cremene_Mircea_Adrian_Lab2.Pages.Categories.IndexModel
 
 @{
@@ -13,25 +13,70 @@
 </p>
 <table class="table">
     <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Category[0].CategoryName)
-            </th>
-            <th></th>
-        </tr>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Category[0].CategoryName)
+        </th>
+        <th></th>
+    </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.Category) {
-        <tr>
+    @foreach (var item in Model.Category)
+    {
+        var selectedRow = "";
+        if (item.Id == Model.CategoryId)
+        {
+            selectedRow = "table-success";
+        }
+        <tr class="@selectedRow">
             <td>
                 @Html.DisplayFor(modelItem => item.CategoryName)
             </td>
             <td>
+                <a asp-page="./Index" asp-route-id="@item.Id">Select</a> |
                 <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
                 <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
                 <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
             </td>
         </tr>
-}
+    }
     </tbody>
 </table>
+
+@if (Model.CategoryData!.Books != null)
+{
+    <h3>Books Edited by Selected Publisher</h3>
+    <table class="table">
+
+        @foreach (var item in Model.CategoryData.Categories!)
+        {
+            string selectedRow = "";
+            if (item.Id == Model.CategoryId)
+            {
+                selectedRow = "table-success";
+            }
+            <tr class="@selectedRow">
+                <td>
+                    @{
+                        @item.CategoryName
+                        
+                        <br />
+                    }
+                </td>
+                <td>
+                    @{
+                        var filteredBooksByCategory = item.BookCategories!.Select(bc => bc.Book).ToList();
+                        
+                        foreach (var b in filteredBooksByCategory)
+                        {
+
+                            @b!.Title @: @b.Author!.AuthorName
+
+                            <br />
+                        }
+                    }
+                </td>
+            </tr>
+        }
+    </table>
+}

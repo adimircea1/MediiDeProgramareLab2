@@ -19,5 +19,9 @@ public class Book
     public int? AuthorId { get; set; }
     public Author? Author { get; set; }
     public Publisher? Publisher { get; set; } 
+    
+    public int? BorrowingId { get; set; }
+    
+    public ICollection<Borrowing>? Borrowings { get; set; }
     public ICollection<BookCategory>? BookCategories { get; set; }
 }

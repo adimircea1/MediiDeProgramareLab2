@@ -54,6 +54,9 @@ namespace Cremene_Mircea_Adrian_Lab2.Migrations
                     b.Property<int?>("AuthorId")
                         .HasColumnType("int");
 
+                    b.Property<int?>("BorrowingId")
+                        .HasColumnType("int");
+
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(6,2)");
 
@@ -99,6 +102,32 @@ namespace Cremene_Mircea_Adrian_Lab2.Migrations
                     b.ToTable("BookCategory");
                 });
 
+            modelBuilder.Entity("Cremene_Mircea_Adrian_Lab2.Models.Borrowing", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int?>("BookId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("MemberId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("ReturnDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BookId");
+
+                    b.HasIndex("MemberId");
+
+                    b.ToTable("Borrowing");
+                });
+
             modelBuilder.Entity("Cremene_Mircea_Adrian_Lab2.Models.Category", b =>
                 {
                     b.Property<int>("Id")
@@ -114,6 +143,35 @@ namespace Cremene_Mircea_Adrian_Lab2.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Category");
+                });
+
+            modelBuilder.Entity("Cremene_Mircea_Adrian_Lab2.Models.Member", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Address")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FirstName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LastName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Phone")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Member");
                 });
 
             modelBuilder.Entity("Cremene_Mircea_Adrian_Lab2.Models.Publisher", b =>
@@ -167,6 +225,21 @@ namespace Cremene_Mircea_Adrian_Lab2.Migrations
                     b.Navigation("Category");
                 });
 
+            modelBuilder.Entity("Cremene_Mircea_Adrian_Lab2.Models.Borrowing", b =>
+                {
+                    b.HasOne("Cremene_Mircea_Adrian_Lab2.Models.Book", "Book")
+                        .WithMany("Borrowings")
+                        .HasForeignKey("BookId");
+
+                    b.HasOne("Cremene_Mircea_Adrian_Lab2.Models.Member", "Member")
+                        .WithMany("Borrowings")
+                        .HasForeignKey("MemberId");
+
+                    b.Navigation("Book");
+
+                    b.Navigation("Member");
+                });
+
             modelBuilder.Entity("Cremene_Mircea_Adrian_Lab2.Models.Author", b =>
                 {
                     b.Navigation("Books");
@@ -175,11 +248,18 @@ namespace Cremene_Mircea_Adrian_Lab2.Migrations
             modelBuilder.Entity("Cremene_Mircea_Adrian_Lab2.Models.Book", b =>
                 {
                     b.Navigation("BookCategories");
+
+                    b.Navigation("Borrowings");
                 });
 
             modelBuilder.Entity("Cremene_Mircea_Adrian_Lab2.Models.Category", b =>
                 {
                     b.Navigation("BookCategories");
+                });
+
+            modelBuilder.Entity("Cremene_Mircea_Adrian_Lab2.Models.Member", b =>
+                {
+                    b.Navigation("Borrowings");
                 });
 
             modelBuilder.Entity("Cremene_Mircea_Adrian_Lab2.Models.Publisher", b =>
