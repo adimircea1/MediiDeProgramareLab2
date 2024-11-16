@@ -1,11 +1,13 @@
 using Cremene_Mircea_Adrian_Lab2.Data;
 using Cremene_Mircea_Adrian_Lab2.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 
 namespace Cremene_Mircea_Adrian_Lab2.Pages.Books
 {
+    [Authorize(Roles = "Admin")]
     public class EditModel : BookCategoriesPageModel
     {
         private readonly Cremene_Mircea_Adrian_Lab2Context _context;
